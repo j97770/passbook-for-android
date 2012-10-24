@@ -11,5 +11,9 @@
     <string name="confirm_hint">confirm password</string>
     <string name="cancel">Cancel</string>
     <string name="register">Register</string>
+    <string name="userNameField">Enter username</string>
+    <string name="passField">Enter password</string>
+    <string name="loginBtn">Login</string>
+    <string name="regBtn">Registration</string>
 
 </resources>
