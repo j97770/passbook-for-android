@@ -29,4 +29,12 @@ public interface UserDAO {
 	 */
 	User get(String username, String password) throws PersistanceException, ValidationException;
 	
+	/**
+	 * Try username to exist
+	 * @param username
+	 * @return if exist return true
+	 * @throws PersistanceException
+	 */
+	boolean exist(String username) throws PersistanceException;
+	
 }

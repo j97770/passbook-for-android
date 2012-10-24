@@ -8,6 +8,8 @@ public class Item implements Serializable {
 	
 	private long id;
 	private User owner;
+	
+	public Item() {}
 
 	public long getId() {
 		return id;

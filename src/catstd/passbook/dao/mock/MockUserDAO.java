@@ -37,5 +37,14 @@ public class MockUserDAO implements UserDAO {
 		}
 		throw new ValidationException("Username or Password incorrect");
 	}
+	
+	public boolean exist(String username) throws PersistanceException {
+	    for(User user : memoryStorage) {
+	        if(user.getUsername().equals(username)) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
 
 }

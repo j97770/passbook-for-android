@@ -12,6 +12,8 @@ public class User implements Serializable {
 	private String password;
 	private List<Item> items;
 	
+	public User() {}
+	
 	public long getId() {
 		return id;
 	}
