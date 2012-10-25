@@ -1,12 +1,22 @@
 package catstd.passbook.activities;
 
+import java.util.logging.Logger;
+
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import catstd.passbook.Constants;
 import catstd.passbook.R;
+import catstd.passbook.dao.PersistanceException;
+import catstd.passbook.dao.UserDAO;
+import catstd.passbook.dao.dto.User;
+import catstd.passbook.utils.Assembler;
 
 public class LoginActivity extends Activity {
+	private static final Logger LOG = Logger
+			.getLogger(RegistrationActivity.class.getSimpleName());
 	private EditText username;
 	private EditText password;
 
@@ -20,12 +30,44 @@ public class LoginActivity extends Activity {
 	}
 
 	public void login(View view) {
+
 		String username = this.username.getText().toString();
 		String password = this.password.getText().toString();
+
+		try {
+			UserDAO userDAO = Constants.getFactory().getUserDAO();
+			if (!userDAO.exist(username)) {
+				// TODO: show dialog user is not exists, try again
+				return;
+			}
+
+			if (password.length() == 0) {
+				// TODO: show dialog please enter the password
+				return;
+			}
+			if (!password.equals(password)) {
+				// TODO: show dialog password is incorrect
+				return;
+			}
+
+			User user = new User();
+			user.setUsername(username);
+			user.setPassword(password);
+			userDAO.persist(user);
+			Intent intent = new Intent(this, MainActivity.class);
+			intent.putExtra(Constants.EXTRA_USER, Assembler.assemble(user));
+			startActivity(intent);
+			finish();
+		} catch (PersistanceException e) {
+			LOG.severe(e.getMessage());
+			// TODO: show message
+		}
 	}
 
 	public void registration(View view) {
-		
+		Intent intent = new Intent(this, RegistrationActivity.class);
+		startActivity(intent);
+
 	}
 
 }

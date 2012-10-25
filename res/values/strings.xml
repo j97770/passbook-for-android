@@ -15,5 +15,11 @@
     <string name="passField">Enter password</string>
     <string name="loginBtn">Login</string>
     <string name="regBtn">Registration</string>
+    <string name="lang_promt">Select language</string>
+
+    <string-array name="lang_arrays">
+        <item>English</item>
+        <item>Russian</item>
+    </string-array>
 
 </resources>
