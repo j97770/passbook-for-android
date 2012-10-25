@@ -1,7 +1,6 @@
 package catstd.passbook.dao.dto;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class User implements Serializable {
 
@@ -9,8 +8,8 @@ public class User implements Serializable {
 
 	private long id;
 	private String username;
+	private String fullname;
 	private String password;
-	private List<Item> items;
 	
 	public User() {}
 	
@@ -30,6 +29,14 @@ public class User implements Serializable {
         this.username = username;
     }
 
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -37,14 +44,6 @@ public class User implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public List<Item> getItems() {
-		return items;
-	}
-
-	public void setItems(List<Item> items) {
-		this.items = items;
-	}
 	
 	@Override
 	public int hashCode() {

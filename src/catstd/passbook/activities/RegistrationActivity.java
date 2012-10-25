@@ -1,15 +1,23 @@
 package catstd.passbook.activities;
 
+import java.util.logging.Logger;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import catstd.passbook.Constants;
 import catstd.passbook.R;
+import catstd.passbook.dao.PersistanceException;
+import catstd.passbook.dao.UserDAO;
 import catstd.passbook.dao.dto.User;
+import catstd.passbook.utils.Assembler;
 
 public class RegistrationActivity extends Activity {
 
+    private static final Logger LOG = Logger.getLogger(RegistrationActivity.class.getSimpleName()); 
+    
     private EditText username;
     private EditText fullname;
     private EditText password;
@@ -36,14 +44,33 @@ public class RegistrationActivity extends Activity {
         String fullname = this.fullname.getText().toString();
         String password = this.password.getText().toString();
         String confirm  = this.confirm.getText().toString();
-        //TODO: check
-        User user = new User();
-        //TODO: register
-        Intent intent = new Intent(this, MainActivity.class);
-        //TODO: send user to next activity
-        intent.putExtra("username", username);
-        startActivity(intent);
-        finish();
+        
+        try {
+            UserDAO userDAO = Constants.getFactory().getUserDAO();
+            if(userDAO.exist(username)) {
+                //TODO: show dialog user exists, choose another
+                return;
+            }
+            if(password.length() == 0) {
+                //TODO: show dialog password lenght must not be empty
+                return;
+            }
+            if(!password.equals(confirm)) {
+                //TODO: show dialog different passwords
+                return;
+            }
+            User user = new User();
+            user.setUsername(username);
+            user.setPassword(password);
+            userDAO.persist(user);
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra(Constants.EXTRA_USER, Assembler.assemble(user));
+            startActivity(intent);
+            finish();
+        } catch (PersistanceException e) {
+            LOG.severe(e.getMessage());
+            //TODO: show message
+        }
     }
     
 }
