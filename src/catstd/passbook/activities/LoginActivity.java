@@ -41,20 +41,12 @@ public class LoginActivity extends Activity {
 				return;
 			}
 
-			if (password.length() == 0) {
-				// TODO: show dialog please enter the password
-				return;
-			}
-			if (!password.equals(password)) {
-				// TODO: show dialog password is incorrect
-				return;
-			}
 			User login = userDAO.get(username, password);
-						
+
 			Intent intent = new Intent(this, MainActivity.class);
 			intent.putExtra(Constants.EXTRA_USER, Assembler.assemble(login));
 			startActivity(intent);
-			
+
 		} catch (PersistanceException e) {
 			LOG.severe(e.getMessage());
 			// TODO: show message
