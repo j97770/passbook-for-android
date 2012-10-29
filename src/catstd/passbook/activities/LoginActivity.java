@@ -49,15 +49,12 @@ public class LoginActivity extends Activity {
 				// TODO: show dialog password is incorrect
 				return;
 			}
-
-			User user = new User();
-			user.setUsername(username);
-			user.setPassword(password);
-			userDAO.persist(user);
+			User login = userDAO.get(username, password);
+						
 			Intent intent = new Intent(this, MainActivity.class);
-			intent.putExtra(Constants.EXTRA_USER, Assembler.assemble(user));
+			intent.putExtra(Constants.EXTRA_USER, Assembler.assemble(login));
 			startActivity(intent);
-			finish();
+			
 		} catch (PersistanceException e) {
 			LOG.severe(e.getMessage());
 			// TODO: show message
