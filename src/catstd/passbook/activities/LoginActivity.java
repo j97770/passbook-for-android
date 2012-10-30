@@ -11,6 +11,7 @@ import catstd.passbook.Constants;
 import catstd.passbook.R;
 import catstd.passbook.dao.PersistanceException;
 import catstd.passbook.dao.UserDAO;
+import catstd.passbook.dao.ValidationException;
 import catstd.passbook.dao.dto.User;
 import catstd.passbook.utils.Assembler;
 
@@ -40,16 +41,23 @@ public class LoginActivity extends Activity {
 				// TODO: show dialog user is not exists, try again
 				return;
 			}
+			if (!userDAO.exist(username)) {
 
+			}
 			User login = userDAO.get(username, password);
 
 			Intent intent = new Intent(this, MainActivity.class);
 			intent.putExtra(Constants.EXTRA_USER, Assembler.assemble(login));
 			startActivity(intent);
+			
+		} catch (ValidationException e) {
+			LOG.severe(e.getMessage());
+			// TODO: handle exception
 
 		} catch (PersistanceException e) {
 			LOG.severe(e.getMessage());
 			// TODO: show message
+
 		}
 	}
 
