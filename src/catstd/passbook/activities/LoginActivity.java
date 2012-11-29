@@ -37,16 +37,16 @@ public class LoginActivity extends AbstractActivity {
 		try {
 			UserDAO userDAO = Constants.getFactory().getUserDAO();
 			if (!userDAO.exist(username)) {
-				AlertDialog builder = new AlertDialog.Builder(this).create();
-				builder.setTitle("Warning");
-				builder.setMessage("Invalid Login or Password");
-				builder.setButton(AlertDialog.BUTTON_NEUTRAL, getResources()
+				AlertDialog dialog = new AlertDialog.Builder(this).create();
+				dialog.setTitle("Warning");
+				dialog.setMessage("Invalid Login or Password");
+				dialog.setButton(AlertDialog.BUTTON_NEUTRAL, getResources()
 						.getString(R.string.ok),
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
 							}
 						});
-				builder.show();
+				dialog.show();
 				return;
 			}
 			if (!userDAO.exist(username)) {
