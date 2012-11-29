@@ -16,6 +16,7 @@
     <string name="loginBtn">Login</string>
     <string name="regBtn">Registration</string>
     <string name="lang_promt">Select language</string>
+    <string name="ok">OK</string>
 
     <string-array name="lang_arrays">
         <item>English</item>

@@ -2,6 +2,8 @@ package catstd.passbook.activities;
 
 import java.util.logging.Logger;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -35,7 +37,16 @@ public class LoginActivity extends AbstractActivity {
 		try {
 			UserDAO userDAO = Constants.getFactory().getUserDAO();
 			if (!userDAO.exist(username)) {
-				// TODO: show dialog user is not exists, try again
+				AlertDialog builder = new AlertDialog.Builder(this).create();
+				builder.setTitle("Warning");
+				builder.setMessage("Invalid Login or Password");
+				builder.setButton(AlertDialog.BUTTON_NEUTRAL, getResources()
+						.getString(R.string.ok),
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+							}
+						});
+				builder.show();
 				return;
 			}
 			if (!userDAO.exist(username)) {
@@ -46,11 +57,9 @@ public class LoginActivity extends AbstractActivity {
 
 		} catch (ValidationException e) {
 			LOG.severe(e.getMessage());
-			// TODO: handle exception
 
 		} catch (PersistanceException e) {
 			LOG.severe(e.getMessage());
-			// TODO: show message
 
 		}
 	}
