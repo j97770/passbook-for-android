@@ -47,6 +47,21 @@ public class RegistrationActivity extends AbstractActivity {
 
 		try {
 			UserDAO userDAO = Constants.getFactory().getUserDAO();
+
+			if (username.length() == 0) {
+				AlertDialog dialog = new AlertDialog.Builder(this).create();
+				dialog.setTitle("Warning");
+				dialog.setMessage("Please enter username");
+				dialog.setButton(AlertDialog.BUTTON_NEUTRAL, getResources()
+						.getString(R.string.ok),
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+							}
+						});
+				dialog.show();
+				return;
+			}
+
 			if (userDAO.exist(username)) {
 				AlertDialog dialog = new AlertDialog.Builder(this).create();
 				dialog.setTitle("Warning");
