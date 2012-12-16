@@ -2,14 +2,11 @@ package catstd.passbook;
 
 import java.util.logging.Logger;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import catstd.passbook.activities.LoginActivity;
+import catstd.passbook.activities.AbstractActivity;
 import catstd.passbook.dao.DaoFactory;
 
-public class PassbookActivity extends Activity {
+public class PassbookActivity extends AbstractActivity {
 
     private static final Logger LOG = Logger.getLogger(PassbookActivity.class.getName());
     
@@ -22,18 +19,12 @@ public class PassbookActivity extends Activity {
             DaoFactory factory = DaoFactory.newInstance(DaoFactory.MOCK);
             Constants.setFactory(factory);
             //open next activity
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
+            openLoginActivity();
             finish();
+            
         } catch(InstantiationException e) {
             LOG.severe(e.getMessage());
-            finish();
         }
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_passbook, menu);
-        return true;
-    }
+    
 }

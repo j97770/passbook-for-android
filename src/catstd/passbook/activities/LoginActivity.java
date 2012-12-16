@@ -50,14 +50,15 @@ public class LoginActivity extends AbstractActivity {
 				return;
 			}
 			if (!userDAO.exist(username)) {
-
+				//TODO: show dialog about user doesn't exist
 			}
 			User user = userDAO.get(username, password);
 			openMainActivity(user);
-
+			finish();
 		} catch (ValidationException e) {
 			LOG.severe(e.getMessage());
-
+			//TODO: show dialog about incorrect password
+			
 		} catch (PersistanceException e) {
 			LOG.severe(e.getMessage());
 
@@ -66,7 +67,7 @@ public class LoginActivity extends AbstractActivity {
 
 	public void registration(View view) {
 		openRegistrationActivity();
-
+		finish();
 	}
 
 }
